@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Facial Age Estimator</title> 
+{% endblock %}
+
+
+{% block body %}
+    <div class='hero-section'>
+        <div class='container'>
+            <div class='hero-content'>
+                <div class='hero-left'>
+                    <h1 class='hero-heading'>
+                        Welcome to Facial Age Estimator App Demo!
+                        Checkout your<span class='text-color-blue'> age predictions
+                        </span> by uploading your Facial Image </h1>
+                    <div>
+                        <form action="/uploader" method="post" enctype="multipart/form-data">
+                                <input type="file" class="file" name="file1">
+                                <button type="submit" class="btn">Predict Age </button>
+                        </form>
+                    </div>
+                </div>
+                <div class='hero-right'>
+                    <img src="static/hero-image.svg" alt=""/>
+                </div>
+            </div>
+        </div>
+    </div>    
+{% endblock %}

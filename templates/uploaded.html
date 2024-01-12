@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Facial Age Estimator App | Result </title> 
+{% endblock %}
+
+
+{% block body %}
+
+<div class='hero-section'>
+    <div class='container'>
+        <div class='hero-content'>
+            <div class='hero-left'>
+                <h1 class='hero-heading'>
+                    Your estimated age is <span class='text-color-orange'> {{ predicted_digit }} years
+                    </span></h1>
+                    <div style="margin-top:30px;">
+                        <a href="/" class="btn"> Try Again </a>
+                    </div>
+                <div>
+
+                </div>
+            </div>
+            <div className='hero-right'>
+                <img src="{{ input_image }}" class="img-fluid border border-danger border-5" alt="Uploaded image" width="430">
+            </div>
+        </div>
+    </div>
+</div>   
+{% endblock %}

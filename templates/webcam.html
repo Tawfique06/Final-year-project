@@ -1,0 +1,74 @@
+
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Facial Age Estimator App | Webcam </title> 
+{% endblock %}
+
+
+
+{% block body %}
+    <div class='hero-section'>
+        <div class='container'>
+            <div class='hero-content'>
+                <div class='hero-left'>
+                    <h1 class='hero-heading'>
+                        Live streaming</h1>
+                        <br/>
+                    <div>
+                        <button style="margin-right:8px" class="btn btn-primary" onclick="capture_and_show_pic()">Take Pic</button>
+                        <button class="btn btn-primary" onclick="start_streaming()">Stream</button>
+                        <br>
+                        <br>
+                        <button class="btn btn-primary" onclick="do_prediction_on_captured_pic()" id="predict_button">Predict</button>
+                    </div>
+                </div>
+                <div class='hero-right'>
+                    <div class="video-wrap">
+                        <div>
+                            <img src="{{ url_for('video') }}" width="300px" height="300px" style="object-fit:cover" streaimg_frames/>
+                        </div>
+                            <h2 style="margin-top:20px;"id="prediction_result"></h2>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </div>    
+<script>
+    function capture_and_show_pic() {
+        var xhr = new XMLHttpRequest();
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == XMLHttpRequest.DONE) {
+                document.getElementById("streaimg_frames").src = "static/webcam_image.jpg";
+            }
+        };
+
+        xhr.open('POST', '/capture_and_show_pic', true);
+        xhr.send();
+        document.getElementById("predict_button").style.visibility = "visible"
+    }
+
+    function start_streaming() {
+        document.getElementById("streaimg_frames").src = "{{ url_for('video') }}";
+    }
+
+    document.getElementById("predict_button").style.visibility = "hidden"
+    
+    function do_prediction_on_captured_pic() {
+        var xhr = new XMLHttpRequest();
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == XMLHttpRequest.DONE) {
+                document.getElementById("prediction_result").innerHTML = "Output: " + xhr.responseText + " Years";
+            }
+        };
+
+        xhr.open('POST', '/webcam_image_predict', true);
+        xhr.send(); 
+    }  
+</script>
+{% endblock %}
+
+    

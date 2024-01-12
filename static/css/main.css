@@ -1,0 +1,140 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap');
+
+
+
+.container {
+  max-width: 1200px;
+  padding: 0px 20px;
+  margin: auto auto;
+  overflow: auto;
+  min-height: 300px;
+}
+
+.header-content {
+  margin: auto;
+  max-width: 1200px;
+  padding: 0px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media only screen and (max-width: 700px) {
+  .hero-content {
+    display: block !important;
+  }
+
+  .hero-heading {
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 55px;
+    color: black;
+    }
+
+    .hero-left{
+      width: 100% !important;
+      margin-bottom: 40px;
+    }
+
+    .file{
+      margin-top: 40px;
+      margin-bottom: 20px;
+    }
+
+    .video-wrap{
+      padding-left: 0px !important;
+    }
+}
+
+.header {
+  padding: 20px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.page-wrapper{
+  min-height: 100vh;
+  background-color: #E7E1E1;
+}
+
+body{
+  margin: 0;
+  padding: 0;
+}
+
+.btn{
+  cursor: pointer;
+  padding: 17px 30px;
+  background-color: black;
+  font-size: 20px;
+  color: white;
+  border-radius: 40px;
+  border: 1px solid #00000000
+}
+
+.btn:hover{
+  color: #ffb49b;
+}
+
+*{
+  font-family: 'Space Grotesk';
+}
+
+.hero-heading {
+font-weight: 500;
+font-size: 70px;
+line-height: 89px;
+color: black;
+}
+
+.hero-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.hero-section{
+  display: flex;
+  align-items: center;
+  min-height: 60vh;
+  padding: 80px 0px;
+}
+
+.hero-left{
+  width: 60%;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 22px 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.footer-text{
+font-weight: 500;
+font-size: 20px;
+line-height: 26px;
+color: black;
+}
+
+.text-color-orange{
+  color: #F2501A;
+}
+
+.file{
+  border-radius: 40px;
+  border: #c1c1c1 solid 1px;
+  padding-top: 17px;
+  padding-bottom: 17px;
+}
+
+.img-fluid{
+  height: 530px;
+  object-fit: cover;
+
+}
+
+.video-wrap{
+  padding-left: 100px;
+}
