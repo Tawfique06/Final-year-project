@@ -51,7 +51,17 @@ div.img-l img {
     font-weight: 600;
     font-family: 'Sora', sans-serif;
 }
-
+.form-3 {
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 50px;
+}
+.chose {
+    width: 99%;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-left: auto;
+}
 .form-p {
     text-align: center;
     color: #3F78E0;
@@ -59,7 +69,21 @@ div.img-l img {
     font-weight: 200;
     font-family: 'Sora', sans-serif;
 }
-
+div.chose img {
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+    margin: auto;
+}
+.c-p {
+    margin-top: 12px;
+    color: #3F78E0;
+    text-align: center;
+}
+.cam {
+    display: flex;
+    flex-direction: column;
+}
 .form-a {
     text-align: center;
     margin-bottom: 2px;
