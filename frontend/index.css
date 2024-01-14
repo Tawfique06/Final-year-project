@@ -94,7 +94,7 @@ div.sidebar ~ div {
     padding: 0;
     margin: 0;
 }
-@media (max-width: 720px) {
+@media (max-width: 780px) {
 div.sidebar {
     display: none;
 }
