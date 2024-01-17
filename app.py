@@ -3,20 +3,17 @@ import cv2
 import os
 from PIL import Image
 from numpy import asarray
-from flask import Flask, render_template, request, Response
+from flask import Flask, render_template, request, Response, redirect
 from werkzeug.utils import secure_filename
 import ktrain
+from storage import Storage
 
 model = ktrain.load_predictor('model')
+user = Storage()
 
 app = Flask(__name__) 
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 app.config['UPLOAD_FOLDER'] = 'static/'
-
-@app.route('/')
-def home():
-    return render_template("index.html")
-
 
 def generate_frames():
     camera=cv2.VideoCapture(0)
@@ -30,6 +27,24 @@ def generate_frames():
 
         yield(b'--frame\r\n'
                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+
+@app.route('/')
+def home():
+    return render_template("signup.html")
+
+@app.route('/sub', methods=['POST'])
+def register():
+    """User registration"""
+    if request.method ==  'POST':
+        res = dict(request.form)
+        result = user.new_user([res['sname'], res['fname'], res['email'], res['pnumber'], res['password']])
+        if result:
+            return redirect('login')
+    return redirect('home')
+
+@app.route('/login')
+def login():
+    return render_template("login.html")
 
 @app.route('/webcam', methods=['GET', 'POST'])
 def webcam():

@@ -11,7 +11,7 @@ class Storage:
     _data = {}
     _current_user = {}
 
-    def __init__(self, file_name):
+    def __init__(self, file_name='storage.json'):
         """The initializaton"""
         if file_name:
              Storage._file_name = file_name
