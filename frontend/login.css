@@ -45,7 +45,6 @@ div.img-l img {
 }
 
 .form-h {
-    /* text-align: center; */
     margin-bottom: 20px;
     color: #3F78E0;
     font-weight: 600;
@@ -64,6 +63,14 @@ div.img-l img {
 }
 .form-p {
     text-align: center;
+    color: #3F78E0;
+    margin-bottom: 20px;
+    font-weight: 200;
+    font-family: 'Sora', sans-serif;
+}
+.form-head {
+    text-align: center;
+    font-size: 18px;
     color: #3F78E0;
     margin-bottom: 20px;
     font-weight: 200;
