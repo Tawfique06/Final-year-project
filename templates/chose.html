@@ -20,14 +20,6 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
     <style>
-        .second {
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            background-image: url("{{ url_for('static', filename='bg.png') }}");
-            background-size: cover;
-            background-position: center;
-        }
     </style>
     <title>Choose - AgeEstimator</title>
 </head>
@@ -41,25 +33,42 @@
             </div>
 
             <div class="form">
-                <h3 class="form-h form-3">Choose detection mode</h3>
+                <h3 class="form-h form-3" id="h3">Choose detection mode</h3>
                
 
-                <div class="row container chose">
+                <div class="row container chose" id="chose">
                     <div class="col-md-6 col-sm-6 col-xs-6 cam">
                         <div><a href="/capture"><img src="{{ url_for('static', filename='camera.png') }}" alt=""></a></div>
                         <p class="form-p c-p">Camera</p>
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-6 cam">
-                        <div><a href="/capture"><img src="{{ url_for('static', filename='gallery.png') }}" alt=""></a></div>
+                        <div><a href="#" id="gallery"><img src="{{ url_for('static', filename='gallery.png') }}" alt=""></a></div>
                         <p class="form-p c-p">Gallery</p>
                     </div>
                 </div>
-                <form action="">
+
+                <form action="/uploader" method="post" enctype="multipart/form-data" id="upload" style="display: none;">
+                    <h3 class="form-h" style="margin-top: 20px;">Choose Your Image!</h3>
+                    <input type="file" name="file1" class="inpu inpu-f" required><br>
+                    <button class="form-c form-f">Upload Image</button>
                 </form>
+    
                 
             </div>
         </div>
     </div>
+
+    <script>
+        const upload = document.getElementById('upload');
+        const gallery = document.getElementById('gallery');
+        const chose = document.getElementById('chose')
+        const h3 = document.getElementById('h3')
+        gallery.addEventListener('click', () => {
+            upload.style.display ='block';
+            chose.style.display = 'none';
+            h3.style.display = 'none';
+        });
+    </script>
 
 </body>
 

@@ -84,6 +84,21 @@ def capture():
         return redirect(url_for('login', message="Please Log in!"))
     return render_template("result.html")
 
+@app.route("/uploader" , methods=['GET', 'POST'])
+def uploader():
+    if user.active:  
+        if request.method=='POST':
+            f = request.files['file1']
+            extension = f.filename.split('.')[1]
+            f.filename = session.get('id') + '.' + extension
+            f.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(f.filename)))
+            result = round(model.predict_filename(f"static/{f.filename}")[0])
+            pic1 = os.path.join(app.config['UPLOAD_FOLDER'], f'{f.filename}')
+            user.add_image_url(session.get('id'), pic1)
+            user.save()
+            return render_template("final.html", predicted_digit=result, input_image=f.filename)
+    return redirect(url_for('login', message="Please Log in!"))
+
 @app.route('/logout')
 def logout():
     """logout"""
@@ -118,16 +133,6 @@ def capture_and_show_pic():
             cv2.imwrite("static/webcam_image.jpg", frame)
             break
     return "Success"
-
-@app.route("/uploader" , methods=['GET', 'POST'])
-def uploader():    
-    if request.method=='POST':
-        f = request.files['file1']
-        f.filename = "image.jpg"
-        f.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(f.filename)))
-        result = round(model.predict_filename("static/image.jpg")[0])
-        pic1 = os.path.join(app.config['UPLOAD_FOLDER'], 'image.jpg')
-        return render_template("uploaded.html", predicted_digit=result, input_image=pic1) 
 
 @app.after_request
 def add_header(response):
