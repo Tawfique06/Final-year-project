@@ -37,20 +37,29 @@ div.img-l img {
     background-size: cover; 
     background-position: center;
 }
-.err-warn{
+.err-mes {
     text-align: center;
     color: red;
     margin-bottom: 20px;
     font-weight: 200;
     font-family: 'Sora', sans-serif;
 }
-.err-warn:not(:has(.content)) {
+.err-mes:not(:has(.content)) {
+    display: none;
+}
+.success-mes {
+    text-align: center;
+    color: greenyellow;
+    margin-bottom: 20px;
+    font-weight: 200;
+    font-family: 'Sora', sans-serif;
+}
+.success-mes:not(:has(.content)) {
     display: none;
 }
 .form {
     width: 80%;
     margin: 10px auto;
-
 }
 
 .form-h {

@@ -47,10 +47,10 @@ def register():
 def login(message):
     """The login file"""
     if message is not None:
-        message  = {'type';'.err-warn', 'class': '.content', 'error': message}
+        message  = {'type';'.err-mes', 'class': '.content', 'text': message}
     return render_template("login.html", message=message)
 
-@app.route('/signin')
+@app.route('/sign')
 def signin():
     """The login implementation endpoint"""
     if request.method ==  'POST':
@@ -62,6 +62,12 @@ def signin():
             session['name'] = f"{result.get('sname')} {result.get('fname')}"
             return redirect('login')
     return redirect('home')
+
+@app.route("/choose")
+def choose(message):
+    if id not in session or session.get('id') is None:
+        redirect('login', message="Please Log in!")
+    return render_template('chose.html')
 
 @app.route('/webcam', methods=['GET', 'POST'])
 def webcam():
