@@ -44,7 +44,7 @@ def register():
             session['id'] = result.get('id')
             session['email'] = result.get('email')
             session['name'] = f"{result.get('sname')} {result.get('fname')}"
-            return redirect(url_for('choose', message=f"Welcome back {session.get('name')}!"))
+            return redirect(url_for('choose', message=f"Welcome Back {session.get('name')}!"))
     return redirect(url_for('home'))
 
 @app.route('/login')
@@ -64,31 +64,34 @@ def signin():
         if result:
             session['id'] = result.get('id')
             session['email'] = result.get('email')
-            session['name'] = f"{result.get('sname')} {result.get('fname')}"
-            return redirect(url_for('choose', message=f"Welcome back {session.get('name')}!"))
+            session['name'] = f"{result.get('sname').upper()} {result.get('fname').upper()}"
+            return redirect(url_for('choose', message=f"Welcome Back {session.get('name')}!"))
     return redirect(url_for('login', message="Your email or password is not correct!"))
 
 @app.route("/choose")
 def choose():
     """choose between upload and take pics"""
-    message = request.args.get('message', '')
-    print(session)
-    if session.get('id') != user.current_user.get('id'):
+    if not user.active:
         return redirect(url_for('login', message="Please Log in!"))
+    message = request.args.get('message', '')
     message  = {'type': 'success-mes', 'class': 'content', 'text': message}
     return render_template('chose.html', message=message)
+
 @app.route('/capture')
 def capture():
     """capture file"""
-    if session.get('id') != user.current_user.get('id'):
+    if not user.active:
         return redirect(url_for('login', message="Please Log in!"))
     return render_template("result.html")
+
 @app.route('/logout')
 def logout():
-    if session.get('id') == user.current_user.get('id'):
+    """logout"""
+    if user.active:
         del session['id']
         del session['name']
         del session['email']
+        user.logout()
     return redirect(url_for('login', message="You can login back!"))
 
 @app.route('/webcam', methods=['GET', 'POST'])

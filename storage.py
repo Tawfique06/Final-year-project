@@ -13,12 +13,17 @@ class Storage:
 
     def __init__(self, file_name='storage.json'):
         """The initializaton"""
-        if file_name:
-             Storage._file_name = file_name
+        Storage._file_name = file_name
+        self.__active = False
         if os.path.exists(Storage._file_name):
             Storage._data = json.load(open(Storage._file_name))
         else:
             Storage._data = {}
+
+    @property
+    def active(self):
+        return self.__active
+
 
     def new_user(self, *args):
         """Add new user which is also the current user"""
@@ -39,6 +44,7 @@ class Storage:
             new['id']= id
             Storage._data[id]= new
             Storage._current_user = new
+            self.__active = True
             return Storage._current_user
 
     def save(self):
@@ -51,7 +57,8 @@ class Storage:
     def current_user(self):
         """Get current user"""
         if len(Storage._current_user.keys()) == 0:
-            return None
+            return {}
+        self.__active = True
         return Storage._current_user
 
     def get_user(self, email, password):
@@ -61,6 +68,7 @@ class Storage:
         for val in Storage._data.values():
             if val.get('email') == email and val.get('password') == password:
                 Storage._current_user = val
+                self.__active = True
                 return Storage._current_user
         return None
 
@@ -74,6 +82,13 @@ class Storage:
             return Storage._current_user
         else:
             return "No such user"
+    
+    def logout(self):
+        """Logout current user"""
+        self.__active = False
+        Storage._current_user = {}
+
+
 
 
 if __name__ ==  "__main__":

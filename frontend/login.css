@@ -9,6 +9,9 @@ body {
 }
 
 .first {
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
     padding: 12px;
 }
 
@@ -165,7 +168,10 @@ div.chose img {
 
 
 @media (max-width: 780px) {
-    .second {
-        display: none;
+    .first {
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 12px;
     }
 }

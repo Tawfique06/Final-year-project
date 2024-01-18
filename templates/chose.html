@@ -35,7 +35,7 @@
 <body>
     <p class="{{ message.type}} {{ message.class }}">{{ message.text }}</p>
     <div class="row container-fluid">
-        <div class="col-md-6 first">
+        <div class="first">
             <div class="img-l">
                 <img src="../static/estimate.png" alt="Logo">
             </div>
@@ -46,11 +46,11 @@
 
                 <div class="row container chose">
                     <div class="col-md-6 col-sm-6 col-xs-6 cam">
-                        <div><img src="{{ url_for('static', filename='camera.png') }}" alt=""></div>
+                        <div><a href="/capture"><img src="{{ url_for('static', filename='camera.png') }}" alt=""></a></div>
                         <p class="form-p c-p">Camera</p>
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-6 cam">
-                        <div><img src="{{ url_for('static', filename='gallery.png') }}" alt=""></div>
+                        <div><a href="/capture"><img src="{{ url_for('static', filename='gallery.png') }}" alt=""></a></div>
                         <p class="form-p c-p">Gallery</p>
                     </div>
                 </div>
@@ -58,10 +58,6 @@
                 </form>
                 
             </div>
-        </div>
-
-        <div class="col-md-6">
-            <div class="second"></div>
         </div>
     </div>
 

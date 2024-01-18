@@ -2,126 +2,122 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
-    <script src="https://code.jquery.com/jquery-3.6.1.slim.js"
-        integrity="sha256-tXm+sa1uzsbFnbXt8GJqsgi2Tw+m4BLGDof6eUPjbtk=" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200&family=Sora:wght@200;400;600&display=swap"
-        rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
+  <script src="https://code.jquery.com/jquery-3.6.1.slim.js"
+    integrity="sha256-tXm+sa1uzsbFnbXt8GJqsgi2Tw+m4BLGDof6eUPjbtk=" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200&family=Sora:wght@200;400;600&display=swap"
+    rel="stylesheet">
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/result.css') }}">
-    <style>
-      .second {
-          margin: 0;
-          padding: 0;
-          height: 100vh;
-          background-image: url("{{ url_for('static', filename='bg.png') }}");
-          background-size: cover;
-          background-position: center;
-      }
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/result.css') }}">
+  <style>
+    .second {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background-image: url("{{ url_for('static', filename='bg.png') }}");
+      background-size: cover;
+      background-position: center;
+    }
   </style>
 
 
-    <title>Result - AgeEstimator</title>
+  <title>Result - AgeEstimator</title>
 </head>
 
 <body>
-    <div class="row container-fluid">
-        <div class="col-md-6 first">
-            <div class="form">
-                <h3 class="form-h h-age">Result</h3>
-                <div class="a-range">
-                    <p class="form-p form-ag">Age range: 31 -37 years</p>
-                    <p class="form-p form-ag">Age range: 34 years old</p>
-                </div>
-                <div>
-                <video id="video" autoplay></video>
-                <button id="captureBtn" class="form-c">Capture</button>
-                <canvas id="canvas"></canvas>
-                <button id="recaptureBtn" style="display: none;" class="form-c">Recapture</button>
-                <button id="submitBtn" style="display: none;" class="form-c">Submit</button>
-            </div>
-
-            </div>
+  <div class="row container-fluid">
+    <div class="first">
+      <div class="form">
+        <h3 class="form-h h-age">Result</h3>
+        <div class="a-range">
+          <p class="form-p form-ag">Age range: 31 -37 years</p>
+          <p class="form-p form-ag">Age range: 34 years old</p>
+        </div>
+        <div>
+          <video id="video" autoplay></video>
+          <button id="captureBtn" class="form-c">Capture</button>
+          <canvas id="canvas"></canvas>
+          <button id="recaptureBtn" style="display: none;" class="form-c">Recapture</button>
+          <button id="submitBtn" style="display: none;" class="form-c">Submit</button>
         </div>
 
-        <div class="col-md-6">
-            <div class="second"></div>
-        </div>
+      </div>
     </div>
+  </div>
 
 
-    <script>
-        let stream;
-    
-        const video = document.getElementById('video');
-        const canvas = document.getElementById('canvas');
-        const captureBtn = document.getElementById('captureBtn');
-        const recaptureBtn = document.getElementById('recaptureBtn');
-        const submitBtn = document.getElementById('submitBtn');
-        const constraints = { video: { facingMode: 'user' } };
-    
-        function startCamera() {
-          navigator.mediaDevices.getUserMedia(constraints)
-            .then((streamObj) => {
-              stream = streamObj;
-              video.srcObject = stream;
-            })
-            .catch((error) => {
-              console.error('Error accessing camera:', error);
-            });
-        }
-    
-        function stopCamera() {
-          if (stream) {
-            stream.getTracks().forEach(track => track.stop());
-          }
-        }
- 
-        startCamera();
-    
-        captureBtn.addEventListener('click', () => {
-          video.style.display = 'none';
-          canvas.style.display = 'block';
-    
- 
-          canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
-          recaptureBtn.style.display = 'inline-block';
-          submitBtn.style.display = 'inline-block';
-          captureBtn.style.display = 'none';
+  <script>
+    let stream;
+
+    const video = document.getElementById('video');
+    const canvas = document.getElementById('canvas');
+    const captureBtn = document.getElementById('captureBtn');
+    const recaptureBtn = document.getElementById('recaptureBtn');
+    const submitBtn = document.getElementById('submitBtn');
+    const constraints = { video: { facingMode: 'user' } };
+
+    function startCamera() {
+      navigator.mediaDevices.getUserMedia(constraints)
+        .then((streamObj) => {
+          stream = streamObj;
+          video.srcObject = stream;
+        })
+        .catch((error) => {
+          console.error('Error accessing camera:', error);
         });
-    
-        recaptureBtn.addEventListener('click', () => {
-          stopCamera();
-    
+    }
 
-          video.style.display = 'block';
-          canvas.style.display = 'none';
-          recaptureBtn.style.display = 'none';
-          submitBtn.style.display = 'none';
-    
+    function stopCamera() {
+      if (stream) {
+        stream.getTracks().forEach(track => track.stop());
+      }
+    }
 
-          captureBtn.style.display = 'inline-block';
-    
+    startCamera();
 
-          startCamera();
-        });
-    
-        submitBtn.addEventListener('click', () => {
-          console.log('Submit button clicked - Add your logic here');
-        });
-      </script>
-    
+    captureBtn.addEventListener('click', () => {
+      video.style.display = 'none';
+      canvas.style.display = 'block';
+
+
+      canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+      recaptureBtn.style.display = 'inline-block';
+      submitBtn.style.display = 'inline-block';
+      captureBtn.style.display = 'none';
+    });
+
+    recaptureBtn.addEventListener('click', () => {
+      stopCamera();
+
+
+      video.style.display = 'block';
+      canvas.style.display = 'none';
+      recaptureBtn.style.display = 'none';
+      submitBtn.style.display = 'none';
+
+
+      captureBtn.style.display = 'inline-block';
+
+
+      startCamera();
+    });
+
+    submitBtn.addEventListener('click', () => {
+      console.log('Submit button clicked - Add your logic here');
+    });
+  </script>
+
 </body>
 
 </html>
