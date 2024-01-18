@@ -3,7 +3,7 @@ import cv2
 import os
 from PIL import Image
 from numpy import asarray
-from flask import Flask, render_template, request, Response, redirect
+from flask import Flask, render_template, request, Response, redirect, session
 from werkzeug.utils import secure_filename
 import ktrain
 from storage import Storage
@@ -32,19 +32,36 @@ def generate_frames():
 def home():
     return render_template("signup.html")
 
-@app.route('/sub', methods=['POST'])
+@app.route('/register', methods=['POST'])
 def register():
     """User registration"""
     if request.method ==  'POST':
         res = dict(request.form)
         result = user.new_user([res['sname'], res['fname'], res['email'], res['pnumber'], res['password']])
         if result:
+            user.save()
             return redirect('login')
     return redirect('home')
 
 @app.route('/login')
-def login():
-    return render_template("login.html")
+def login(message):
+    """The login file"""
+    if message is not None:
+        message  = {'type';'.err-warn', 'class': '.content', 'error': message}
+    return render_template("login.html", message=message)
+
+@app.route('/signin')
+def signin():
+    """The login implementation endpoint"""
+    if request.method ==  'POST':
+        res = dict(request.form)
+        result = user.get_user(res['email'], res['password'])
+        if result:
+            session['id'] = result.get('id')
+            session['email'] = result.get('email')
+            session['name'] = f"{result.get('sname')} {result.get('fname')}"
+            return redirect('login')
+    return redirect('home')
 
 @app.route('/webcam', methods=['GET', 'POST'])
 def webcam():

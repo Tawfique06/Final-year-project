@@ -20,6 +20,16 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/result.css') }}">
+    <style>
+      .second {
+          margin: 0;
+          padding: 0;
+          height: 100vh;
+          background-image: url("{{ url_for('static', filename='bg.png') }}");
+          background-size: cover;
+          background-position: center;
+      }
+  </style>
 
 
     <title>Result - AgeEstimator</title>

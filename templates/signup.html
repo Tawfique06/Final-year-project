@@ -19,6 +19,16 @@
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+    <style>
+        .second {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background-image: url("{{ url_for('static', filename='bg.png') }}");
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
     <title>Sign UP - AgeEstimator</title>
 </head>
 
@@ -34,25 +44,25 @@
                     Welcome to Facial Age Estimator App Demo!
                     Checkout your age predictions by uploading your Facial Image </h2>
                 <div>
-                <h3 class="form-h">Sign up</h3>
-               
-                <form action="/sub" method="post">
-                    <input type="text" name="sname" class="inpu" placeholder="  Surname"><br>
-                    <input type="text" name="fname" class="inpu" placeholder="  Firstname"><br>
-                    <input type="text" name="email" class="inpu" placeholder="  Email"><br>
-                    <input type="tel" name="pnumber" class="inpu" placeholder="  Phone"><br>
-                    <input type="password" name="password" class="inpu" placeholder="  Password"><br>
-                    
-                    <button class="form-c">Sign up</button>
-                </form>
-                
+                    <h3 class="form-h">Sign up</h3>
+
+                    <form action="/register" method="post">
+                        <input type="text" name="sname" class="inpu" placeholder="  Surname" required><br>
+                        <input type="text" name="fname" class="inpu" placeholder="  Firstname" required><br>
+                        <input type="text" name="email" class="inpu" placeholder="  Email" required><br>
+                        <input type="tel" name="pnumber" class="inpu" placeholder="  Phone" required><br>
+                        <input type="password" name="password" class="inpu" placeholder="  Password" required><br>
+
+                        <button class="form-c">Sign up</button>
+                    </form>
+
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="second"></div>
             </div>
         </div>
-
-        <div class="col-md-6">
-            <div class="second"></div>
-        </div>
-    </div>
 
 </body>
 
