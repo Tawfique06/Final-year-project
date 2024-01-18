@@ -29,7 +29,7 @@ class Storage:
                 if i == 0:
                     new['sname'] = val
                 if i == 1:
-                    new['fname ']= val
+                    new['fname']= val
                 if i == 2:
                     new['email'] = val
                 if i == 3:
@@ -62,7 +62,7 @@ class Storage:
             if val.get('email') == email and val.get('password') == password:
                 Storage._current_user = val
                 return Storage._current_user
-        return ('No such user')
+        return None
 
     def add_image_url(self, idx, url):
         """add the image url of the user"""

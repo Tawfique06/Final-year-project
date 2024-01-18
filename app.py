@@ -3,7 +3,7 @@ import cv2
 import os
 from PIL import Image
 from numpy import asarray
-from flask import Flask, render_template, request, Response, redirect, session
+from flask import Flask, render_template, request, Response, redirect, session, url_for
 from werkzeug.utils import secure_filename
 import ktrain
 from storage import Storage
@@ -14,6 +14,7 @@ user = Storage()
 app = Flask(__name__) 
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 app.config['UPLOAD_FOLDER'] = 'static/'
+app.secret_key = 'AStupidConsistencyIsHobglobinOfLittleMind'
 
 def generate_frames():
     camera=cv2.VideoCapture(0)
@@ -40,17 +41,21 @@ def register():
         result = user.new_user([res['sname'], res['fname'], res['email'], res['pnumber'], res['password']])
         if result:
             user.save()
-            return redirect('login')
-    return redirect('home')
+            session['id'] = result.get('id')
+            session['email'] = result.get('email')
+            session['name'] = f"{result.get('sname')} {result.get('fname')}"
+            return redirect(url_for('choose', message=f"Welcome back {session.get('name')}!"))
+    return redirect(url_for('home'))
 
 @app.route('/login')
-def login(message):
+def login():
     """The login file"""
+    message = request.args.get('message', '')
     if message is not None:
-        message  = {'type';'.err-mes', 'class': '.content', 'text': message}
+        message  = {'type': 'err-mes', 'class': 'content', 'text': message}
     return render_template("login.html", message=message)
 
-@app.route('/sign')
+@app.route('/sign', methods=['POST'])
 def signin():
     """The login implementation endpoint"""
     if request.method ==  'POST':
@@ -60,14 +65,31 @@ def signin():
             session['id'] = result.get('id')
             session['email'] = result.get('email')
             session['name'] = f"{result.get('sname')} {result.get('fname')}"
-            return redirect('login')
-    return redirect('home')
+            return redirect(url_for('choose', message=f"Welcome back {session.get('name')}!"))
+    return redirect(url_for('login', message="Your email or password is not correct!"))
 
 @app.route("/choose")
-def choose(message):
-    if id not in session or session.get('id') is None:
-        redirect('login', message="Please Log in!")
-    return render_template('chose.html')
+def choose():
+    """choose between upload and take pics"""
+    message = request.args.get('message', '')
+    print(session)
+    if session.get('id') != user.current_user.get('id'):
+        return redirect(url_for('login', message="Please Log in!"))
+    message  = {'type': 'success-mes', 'class': 'content', 'text': message}
+    return render_template('chose.html', message=message)
+@app.route('/capture')
+def capture():
+    """capture file"""
+    if session.get('id') != user.current_user.get('id'):
+        return redirect(url_for('login', message="Please Log in!"))
+    return render_template("result.html")
+@app.route('/logout')
+def logout():
+    if session.get('id') == user.current_user.get('id'):
+        del session['id']
+        del session['name']
+        del session['email']
+    return redirect(url_for('login', message="You can login back!"))
 
 @app.route('/webcam', methods=['GET', 'POST'])
 def webcam():

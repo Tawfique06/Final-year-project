@@ -39,24 +39,28 @@ div.img-l img {
 }
 .err-mes {
     text-align: center;
+    font-size: 20px;
     color: red;
-    margin-bottom: 20px;
-    font-weight: 200;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    font-weight: 400;
     font-family: 'Sora', sans-serif;
 }
-.err-mes:not(:has(.content)) {
+/* p.err-mes:not(:has(.content)) {
     display: none;
-}
-.success-mes {
+} */
+p.success-mes {
     text-align: center;
     color: greenyellow;
-    margin-bottom: 20px;
-    font-weight: 200;
+    margin-top: 8px;
+    font-size: 20px;
+    margin-bottom: 8px;
+    font-weight: 400;
     font-family: 'Sora', sans-serif;
 }
-.success-mes:not(:has(.content)) {
+/* p.success-mes:not(:has(.content)) {
     display: none;
-}
+} */
 .form {
     width: 80%;
     margin: 10px auto;
