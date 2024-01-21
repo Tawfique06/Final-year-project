@@ -8,6 +8,8 @@ body {
     background-color: #fff;
 }
 
+
+
 .first {
     width: 70%;
     margin-left: auto;
@@ -167,6 +169,26 @@ input.inpu-f {
 
 .lin {
     color: #9C80F9;
+}
+
+.navbar {
+    width: 100%;
+    margin: 0px auto 0px auto;
+    padding: 4px;
+    padding-bottom: 0px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #fff;
+}
+.navbar a {
+    color: #3F78E0;
+    font-style: italic;
+    padding: 5px;
+    padding-bottom: 0px;
+}
+hr {
+    border: 1px solid #3F78E0;
 }
 
 

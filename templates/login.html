@@ -34,10 +34,15 @@
 
 <body>
     <p class="{{ message.type}} {{ message.class }}">{{ message.text }}</p>
+    <div class="navbar">
+        <a href="#" class="form-p" onclick="alert('The app is still in development. We will get back to you as soon as possible!')">Get App</a>
+        <a href="/" clss="form-p">Sign up</a>
+    </div>
+    <hr >
     <div class="row container-fluid">
         <div class="first">
             <div class="img-l">
-                <img src="../static/estimate.png" alt="Logo">
+                <img src="{{ url_for('static', filename='estimate.png') }}" alt="Logo">
             </div>
 
             <div class="form">

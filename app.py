@@ -84,7 +84,7 @@ def capture():
         return redirect(url_for('login', message="Please Log in!"))
     return render_template("result.html")
 
-@app.route("/uploader" , methods=['GET', 'POST'])
+@app.route("/uploader" , methods=['POST'])
 def uploader():
     if user.active:  
         if request.method=='POST':

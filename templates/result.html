@@ -36,16 +36,21 @@
 </head>
 
 <body>
+  <div class="navbar">
+    <a href="#" class="form-p" onclick="alert('The app is still in development. We will get back to you as soon as possible!')">Get App</a>
+    <a href="/logout" clss="form-p">Log out</a>
+</div>
+<hr >
   <div class="row container-fluid">
     <div class="first">
       <div class="form">
         <div class="img-l">
-          <img src="estimate.png" alt="Logo">
+          <img src="{{ url_for('static', filename='estimate.png') }}" alt="Logo">
         </div>
         <h3 class="form-h h-age">Result</h3>
         <div class="a-range">
-          <p class="form-p form-ag">Age range: 31 -37 years</p>
-          <p class="form-p form-ag">Age range: 34 years old</p>
+          <p class="form-p form-ag">Age range: xx - xy years</p>
+          <p class="form-p form-ag">Age range: xm years old</p>
         </div>
         <div>
           <video id="video" autoplay></video>
