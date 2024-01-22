@@ -47,12 +47,13 @@
         <div class="img-l">
           <img src="{{ url_for('static', filename='estimate.png') }}" alt="Logo">
         </div>
-        <h3 class="form-h h-age">Result</h3>
-        <div class="a-range">
+        <h3 class="form-h h-age">Capture your Image!</h3>
+        <!-- <div class="a-range">
           <p class="form-p form-ag">Age range: xx - xy years</p>
           <p class="form-p form-ag">Age range: xm years old</p>
-        </div>
+        </div> -->
         <div>
+          <input type="file" accept="image/*" id="imageInput" style="display: none;">
           <video id="video" autoplay></video>
           <button id="captureBtn" class="form-c">Capture</button>
           <canvas id="canvas"></canvas>
@@ -71,8 +72,7 @@
     const video = document.getElementById('video');
     const canvas = document.getElementById('canvas');
     const captureBtn = document.getElementById('captureBtn');
-    const recaptureBtn = document.getElementById('recaptureBtn');
-    const submitBtn = document.getElementById('submitBtn');
+    const imageInput = document.getElementById('imageInput');
     const constraints = { video: { facingMode: 'user' } };
 
     function startCamera() {
@@ -92,37 +92,42 @@
       }
     }
 
+    function uploadImage(file) {
+      const endpoint = '/uploaded';
+
+      const formData = new FormData();
+      formData.append('file1', file, 'image.png');
+
+      fetch(endpoint, {
+        method: 'POST',
+        body: formData,
+      })
+      .then(response => response.json())
+      .then(data => {
+        window.location = data.redirect_url
+        console.log('Upload successful:', data);
+      })
+      .catch(error => {
+        console.error('Error uploading image:', error);
+      });
+    }
+
     startCamera();
 
     captureBtn.addEventListener('click', () => {
+
       video.style.display = 'none';
       canvas.style.display = 'block';
-
-
       canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
-      recaptureBtn.style.display = 'inline-block';
-      submitBtn.style.display = 'inline-block';
-      captureBtn.style.display = 'none';
-    });
+      canvas.toBlob(blob => {
+        const file = new File([blob], 'captured_image.png', { type: 'image/png' });
 
-    recaptureBtn.addEventListener('click', () => {
-      stopCamera();
+        uploadImage(file);
 
+        captureBtn.style.display = 'none';
 
-      video.style.display = 'block';
-      canvas.style.display = 'none';
-      recaptureBtn.style.display = 'none';
-      submitBtn.style.display = 'none';
-
-
-      captureBtn.style.display = 'inline-block';
-
-
-      startCamera();
-    });
-
-    submitBtn.addEventListener('click', () => {
-      console.log('Submit button clicked - Add your logic here');
+        stopCamera();
+      }, 'image/png');
     });
   </script>
 

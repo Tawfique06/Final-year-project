@@ -3,7 +3,7 @@ import cv2
 import os
 from PIL import Image
 from numpy import asarray
-from flask import Flask, render_template, request, Response, redirect, session, url_for
+from flask import Flask, render_template, request, Response, redirect, session, url_for, jsonify
 from werkzeug.utils import secure_filename
 import ktrain
 from storage import Storage
@@ -98,6 +98,30 @@ def uploader():
             user.save()
             return render_template("final.html", predicted_digit=result, input_image=f.filename)
     return redirect(url_for('login', message="Please Log in!"))
+
+@app.route("/uploaded" , methods=['POST'])
+def uploaded():
+    if user.active:  
+        if request.method=='POST':
+            f = request.files['file1']
+            extension = f.filename.split('.')[1]
+            f.filename = session.get('id') + '.' + extension
+            f.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(f.filename)))
+            result = round(model.predict_filename(f"static/{f.filename}")[0])
+            pic1 = os.path.join(app.config['UPLOAD_FOLDER'], f'{f.filename}')
+            user.add_image_url(session.get('id'), pic1)
+            user.save()
+            result_url = url_for('result', predicted_digit=result, input_image=f.filename, _external=True)
+            response_data = {'redirect_url': result_url}
+            return jsonify(response_data)
+
+    return redirect(url_for('login', message="Please Log in!"))
+
+@app.route("/result")
+def result():
+    predicted_digit = request.args.get('predicted_digit')
+    input_image = request.args.get('input_image')
+    return render_template("final.html", predicted_digit=predicted_digit, input_image=input_image)
 
 @app.route('/logout')
 def logout():
