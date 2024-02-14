@@ -9,7 +9,7 @@ body {
 }
 
 .first {
-    width: 70%;
+    width: 60%;
     margin-left: auto;
     margin-right: auto;
     padding: 12px;
@@ -17,7 +17,7 @@ body {
 
 div.img-l {
     max-width: 50%;
-    margin: 80px auto 20px auto;
+    margin: 10px auto 20px auto;
     height: 60px; 
 }
 
@@ -31,7 +31,15 @@ div.img-l img {
 .first img {
     margin-top: 20px;
 }
-
+.second {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background-image: url("../bg.png");
+    background-size: cover; 
+    background-position: center;
+    width: 60%;
+}
 .err-mes {
     text-align: center;
     font-size: 20px;
@@ -69,6 +77,7 @@ p.success-mes {
 }
 .form-3 {
     text-align: center;
+    letter-spacing: 0px;
     margin-top: 40px;
     margin-bottom: 50px;
 }
@@ -76,7 +85,7 @@ p.success-mes {
     width: 99%;
     margin-top: 20px;
     margin-left: auto;
-    margin-left: auto;
+    margin-right: auto;
 }
 .form-p {
     text-align: center;
@@ -93,6 +102,11 @@ p.success-mes {
     font-weight: 200;
     font-family: 'Sora', sans-serif;
 }
+h2.form-hh {
+    margin-top: 60px;
+    font-weight: 500;
+    line-height: normal;
+}
 div.chose img {
     max-width: 100%;
     max-height: 100%;
@@ -103,6 +117,7 @@ div.chose img {
     margin-top: 12px;
     color: #3F78E0;
     text-align: center;
+    font-weight: 500;
 }
 .cam {
     display: flex;
@@ -113,6 +128,12 @@ div.chose img {
     margin-bottom: 2px;
     font-weight: 200;
     font-family: 'Sora', sans-serif;
+}
+
+h3.form-inst {
+    font-size: 18px;
+    padding-top: 20px;
+    padding-left: 10px;
 }
 
 .inp {
@@ -186,21 +207,34 @@ input.inpu-f {
 .navbar {
     width: 100%;
     margin: 0px auto 0px auto;
-    padding: 4px;
     padding-bottom: 0px;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-start;
     background-color: #fff;
+    height: 10px;
 }
+.navbar {
+    background-color: #3F78E0;
+    overflow: hidden;
+}
+
 .navbar a {
-    color: #3F78E0;
-    font-style: italic;
-    padding: 5px;
-    padding-bottom: 0px;
+    float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+}
+
+.navbar a.right {
+    position: relative;
+    left: 70%;
 }
 hr {
     border: 1px solid #3F78E0;
+    margin-top: -1px !important;
 }
 
 
@@ -211,5 +245,12 @@ hr {
         margin-left: auto;
         margin-right: auto;
         padding: 12px;
+    }
+    .second {
+        display: none;
+    }
+    .navbar a.right {
+        position: relative;
+        left: 25%;
     }
 }

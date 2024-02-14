@@ -30,6 +30,10 @@ def generate_frames():
                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
 @app.route('/')
+def home_page():
+    return render_template("home.html")
+
+@app.route('/reg')
 def home():
     return render_template("signup.html")
 
@@ -114,7 +118,6 @@ def uploaded():
             result_url = url_for('result', predicted_digit=result, input_image=f.filename, _external=True)
             response_data = {'redirect_url': result_url}
             return jsonify(response_data)
-
     return redirect(url_for('login', message="Please Log in!"))
 
 @app.route("/result")

@@ -19,44 +19,46 @@
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+    <title>Home - AgeEstimator</title>
     <style>
+        .first {
+            width: 55%;
+        }
     </style>
-    <title>Login - AgeEstimator</title>
 </head>
 
 <body>
     <div class="navbar">
-        <a href="/">Home</a>
+        <a href="/reg">Sign Up</a>
         <a href="#" onclick="alert('The app is still in development. We will get back to you as soon as possible!')">Get App</a>
-        <a href="/reg"  class="right">Sign Up</a>
+        <a href="/login" class="right">Log in</a>
     </div>
     <hr>
-    <p class="{{ message.type}} {{ message.class }}">{{ message.text }}</p>
     <div class="row container-fluid">
-        <div class="first">
+        <div class="col-md-3 first">
             <div class="img-l">
                 <img src="{{ url_for('static', filename='estimate.png') }}" alt="Logo">
             </div>
 
             <div class="form">
-                <h2 class='form-head'>
-                    Welcome to Facial Age Estimator App Demo!
-                    Checkout your age predictions by uploading your Facial Image </h2>
-                <div>
-                <h3 class="form-h">Login</h3>
-               
-                <form action="/sign" method="post">
-                    <input type="text" name="email" class="inpu" placeholder="  Email" required><br>
-                    <input type="password" name="password" class="inpu" placeholder="  Password" required><br>
-                    
-                    <button class="form-c">Login</button>
-                </form>
-                <p class="form-p">You did not have account with us? <a href="/reg">Sign Up</a></p>
-                
+                <h2 class="form-h form-hh">Welcome to Facial Age Estimator App Demo!
+                    Checkout your age predictions by uploading your Facial Image 
+                </h2>
+
+                <button class="form-c" id="start">Start!</button>
             </div>
         </div>
-    </div>
 
+        <div class="col-md-4">
+            <div class="second"></div>
+        </div>
+    </div>
+    <script>
+        const start = document.getElementById('start');
+        start.addEventListener('click', () => {
+          window.location = 'reg';
+        });
+      </script>
 </body>
 
 </html>

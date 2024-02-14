@@ -20,27 +20,18 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}" />
   <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/result.css') }}">
-  <style>
-    .second {
-      margin: 0;
-      padding: 0;
-      height: 100vh;
-      background-image: url("{{ url_for('static', filename='bg.png') }}");
-      background-size: cover;
-      background-position: center;
-    }
-  </style>
-
 
   <title>Result - AgeEstimator</title>
 </head>
 
 <body>
   <div class="navbar">
-    <a href="#" class="form-p" onclick="alert('The app is still in development. We will get back to you as soon as possible!')">Get App</a>
-    <a href="/logout" clss="form-p">Log out</a>
-</div>
-<hr >
+    <a href="/">Home</a>
+    <a href="#" onclick="alert('The app is still in development. We will get back to you as soon as possible!')">Get
+      App</a>
+    <a href="/logout" class="right">Logout</a>
+  </div>
+  <hr>
   <div class="row container-fluid">
     <div class="first">
       <div class="form">
@@ -102,14 +93,14 @@
         method: 'POST',
         body: formData,
       })
-      .then(response => response.json())
-      .then(data => {
-        window.location = data.redirect_url
-        console.log('Upload successful:', data);
-      })
-      .catch(error => {
-        console.error('Error uploading image:', error);
-      });
+        .then(response => response.json())
+        .then(data => {
+          window.location = data.redirect_url
+          console.log('Upload successful:', data);
+        })
+        .catch(error => {
+          console.error('Error uploading image:', error);
+        });
     }
 
     startCamera();

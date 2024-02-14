@@ -22,14 +22,15 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/result.css') }}">
   <style>
     .final {
-        width: 100%;
-        height: 300px;
+      width: 100%;
+      height: 300px;
     }
+
     .final img {
-        width: 100%;
-        height :300px;
+      width: 100%;
+      height: 300px;
     }
-</style>
+  </style>
 
 
   <title>Result - AgeEstimator</title>
@@ -37,10 +38,11 @@
 
 <body>
   <div class="navbar">
-    <a href="#" class="form-p" onclick="alert('The app is still in development. We will get back to you as soon as possible!')">Get App</a>
-    <a href="/logout" clss="form-p">Log out</a>
+    <a href="/">Home</a>
+    <a href="#" onclick="alert('The app is still in development. We will get back to you as soon as possible!')">Get App</a>
+    <a href="/logout"  class="right">Logout</a>
 </div>
-<hr >
+<hr>
   <div class="row container-fluid">
     <div class="first">
       <div class="form">
@@ -49,12 +51,12 @@
         </div>
         <h3 class="form-h h-age">Result</h3>
         <div class="a-range">
-          <p class="form-p form-ag">Age range: {{predicted_digit}} years</p>
-          <p class="form-p form-ag">Age: {{predicted_digit}} years old</p>
+          <p class="form-p form-ag">Age range: {{ (predicted_digit|int) - 2 }} - {{ (predicted_digit|int) + 2 }} years</p>
+          <p class="form-p form-ag">Age: {{ predicted_digit }} years old</p>
         </div>
         <div>
-            <div class="final"><img src="{{ url_for('static', filename=input_image) }}" alt=""></div>
-          <button id="retry" class="form-c">Retry!</button>
+          <div class="final"><img src="{{ url_for('static', filename=input_image) }}" alt=""></div>
+          <button id="retry" class="form-c">Try again!</button>
         </div>
 
       </div>
@@ -63,9 +65,9 @@
   <script>
     const retry = document.getElementById('retry');
     retry.addEventListener('click', () => {
-        window.location = 'choose';
+      window.location = 'choose';
     });
-</script>
+  </script>
 
 
 </body>

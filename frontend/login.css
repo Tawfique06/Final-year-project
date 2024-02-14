@@ -11,12 +11,11 @@ body {
 
 
 .first {
-    width: 70%;
+    width: 50%;
     margin-left: auto;
     margin-right: auto;
     padding: 12px;
 }
-
 div.img-l {
     max-width: 50%;
     margin: 80px auto 20px auto;
@@ -41,6 +40,7 @@ div.img-l img {
     background-image: url("bg.png");
     background-size: cover; 
     background-position: center;
+    width: 60%;
 }
 
 .form {
@@ -70,6 +70,11 @@ div.img-l img {
     margin-bottom: 20px;
     font-weight: 200;
     font-family: 'Sora', sans-serif;
+}
+h2.form-hh {
+    margin-top: 60px;
+    font-weight: 500;
+    line-height: normal;
 }
 .form-head {
     text-align: center;
@@ -199,5 +204,8 @@ hr {
         margin-left: auto;
         margin-right: auto;
         padding: 12px;
+    }
+    .second {
+        display: none;
     }
 }

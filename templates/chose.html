@@ -20,47 +20,61 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
     <style>
+        .first {
+            width: 65%;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 12px;
+            padding-left: 0px;
+        }
     </style>
     <title>Choose - AgeEstimator</title>
 </head>
 
 <body>
-    <p class="{{ message.type}} {{ message.class }}">{{ message.text }}</p>
     <div class="navbar">
-        <a href="#" class="form-p" onclick="alert('The app is still in development. We will get back to you as soon as possible!')">Get App</a>
-        <a href="/logout" clss="form-p">Log out</a>
+        <a href="/">Home</a>
+        <a href="#" onclick="alert('The app is still in development. We will get back to you as soon as possible!')">Get App</a>
+        <a href="/logout"  class="right">Logout</a>
     </div>
-    <hr >
-    <div class="row container-fluid">
-        <div class="first">
-            <div class="img-l">
-                <img src="{{ url_for('static', filename='estimate.png') }}" alt="Logo">
-            </div>
+    <hr>
+    <p class="{{ message.type}} {{ message.class }}">{{ message.text }}</p>
+    <div class="row container">
+        <div class="col-md-5 first">
 
             <div class="form">
                 <h3 class="form-h form-3" id="h3">Choose detection mode</h3>
-               
+
 
                 <div class="row container chose" id="chose">
                     <div class="col-md-6 col-sm-6 col-xs-6 cam">
-                        <div><a href="/capture"><img src="{{ url_for('static', filename='camera.png') }}" alt=""></a></div>
+                        <div><a href="/capture"><img src="{{ url_for('static', filename='camera.png') }}" alt=""></a>
+                        </div>
                         <p class="form-p c-p">Camera</p>
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-6 cam">
-                        <div><a href="#" id="gallery"><img src="{{ url_for('static', filename='gallery.png') }}" alt=""></a></div>
-                        <p class="form-p c-p">Gallery</p>
+                        <div><a href="#" id="gallery"><img src="{{ url_for('static', filename='gallery.png') }}"
+                                    alt=""></a></div>
+                        <p class="form-p c-p">Upload</p>
                     </div>
                 </div>
+                <div class="chose" id="inst">
+                <h3 class="form-p form-inst">You can select camera to upload your facial image or upload your facial
+                    image from your device gallery</h3></div>
 
                 <form action="/uploader" method="post" enctype="multipart/form-data" id="upload" style="display: none;">
                     <h3 class="form-h" style="margin-top: 20px;">Choose Your Image!</h3>
                     <input type="file" name="file1" class="inpu inpu-f" required><br>
                     <button class="form-c form-f">Upload Image</button>
                 </form>
-    
-                
+
+
             </div>
         </div>
+        <div class="col-md-4">
+            <div class="second"></div>
+        </div>
+
     </div>
 
     <script>
@@ -68,10 +82,12 @@
         const gallery = document.getElementById('gallery');
         const chose = document.getElementById('chose')
         const h3 = document.getElementById('h3')
+        const inst = document.getElementById('inst')
         gallery.addEventListener('click', () => {
-            upload.style.display ='block';
+            upload.style.display = 'block';
             chose.style.display = 'none';
             h3.style.display = 'none';
+            inst.style.display = 'none';
         });
     </script>
 
