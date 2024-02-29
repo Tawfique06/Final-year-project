@@ -136,30 +136,8 @@ def logout():
         user.logout()
     return redirect(url_for('login', message="You can login back!"))
 
-@app.route('/webcam', methods=['GET', 'POST'])
-def webcam():
-    return render_template("webcam.html")
 
-@app.route('/video')
-def video():
-    return Response(generate_frames(),mimetype='multipart/x-mixed-replace; boundary=frame')
 
-@app.route('/webcam_image_predict', methods=['GET', 'POST'])
-def webcam_image_predict():
-    result = round(model.predict_filename("static/webcam_image.jpg")[0])
-    return str(result)
-
-@app.route('/capture_and_show_pic', methods=['GET', 'POST'])
-def capture_and_show_pic():
-    camera=cv2.VideoCapture(0)
-    while True:
-        success,frame=camera.read()
-        if not success:
-            break
-        else:
-            cv2.imwrite("static/webcam_image.jpg", frame)
-            break
-    return "Success"
 
 @app.after_request
 def add_header(response):
