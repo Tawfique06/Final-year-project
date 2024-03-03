@@ -61,6 +61,15 @@ class Storage:
         self.__active = True
         return Storage._current_user
 
+    @property
+    def get_url(self):
+        """get image url"""
+        if self.__active == False:
+            return None
+        self.__active = True
+        return Storage._current_user.get('image_url')
+        
+
     def get_user(self, email, password):
         "Get a particular user and set it as current user"
         if not email or not password:
@@ -92,7 +101,7 @@ class Storage:
 
 
 if __name__ ==  "__main__":
-    test = Storage("test.json")
+    test = Storage("tests/test.json")
     print(test.new_user(['mus', 'mus', 'mus@ageestimator', '+2348056xxxx', 'passkey']))
     print(test.new_user(['Hammed', 'Taofeeq', 'tk@ageestimator', '+2348056xxxx', 'passkey']))
     print(test.save())

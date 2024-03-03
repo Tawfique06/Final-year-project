@@ -255,7 +255,7 @@ hr {
         margin-right: auto;
         padding: 12px;
     }
-    .second {
+    .second, .second1 {
         display: none;
     }
     .navbar a.right {

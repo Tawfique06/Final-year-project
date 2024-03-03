@@ -7,6 +7,7 @@ from flask import Flask, render_template, request, Response, redirect, session, 
 from werkzeug.utils import secure_filename
 import ktrain
 from storage import Storage
+from face_crop import crop_face
 
 model = ktrain.load_predictor('model')
 user = Storage()
@@ -31,10 +32,14 @@ def generate_frames():
 
 @app.route('/')
 def home_page():
+    if user.active:
+        return redirect(url_for('choose'))
     return render_template("home.html")
 
 @app.route('/reg')
 def home():
+    if user.active:
+        return redirect(url_for('choose'))
     return render_template("signup.html")
 
 @app.route('/register', methods=['POST'])
@@ -54,6 +59,8 @@ def register():
 @app.route('/login')
 def login():
     """The login file"""
+    if user.active:
+        return redirect(url_for('choose'))
     message = request.args.get('message', '')
     if message is not None:
         message  = {'type': 'err-mes', 'class': 'content', 'text': message}
@@ -90,31 +97,45 @@ def capture():
 
 @app.route("/uploader" , methods=['POST'])
 def uploader():
+    """Uploading through form"""
     if user.active:  
         if request.method=='POST':
             f = request.files['file1']
             extension = f.filename.split('.')[1]
             f.filename = session.get('id') + '.' + extension
             f.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(f.filename)))
-            result = round(model.predict_filename(f"static/{f.filename}")[0])
             pic1 = os.path.join(app.config['UPLOAD_FOLDER'], f'{f.filename}')
             user.add_image_url(session.get('id'), pic1)
             user.save()
+            crop_face(user.get_url)
+            new_url =  f"static/face_0.jpg"
+            result = round(model.predict_filename(new_url)[0])
+            if os.path.exists(new_url):
+                os.remove(new_url)
+            else:
+                result = round(model.predict_filename(f"static/{f.filename}")[0])
             return render_template("final.html", predicted_digit=result, input_image=f.filename)
     return redirect(url_for('login', message="Please Log in!"))
 
 @app.route("/uploaded" , methods=['POST'])
 def uploaded():
+    """upload through capture"""
     if user.active:  
         if request.method=='POST':
             f = request.files['file1']
             extension = f.filename.split('.')[1]
             f.filename = session.get('id') + '.' + extension
             f.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(f.filename)))
-            result = round(model.predict_filename(f"static/{f.filename}")[0])
             pic1 = os.path.join(app.config['UPLOAD_FOLDER'], f'{f.filename}')
             user.add_image_url(session.get('id'), pic1)
             user.save()
+            crop_face(user.get_url)
+            new_url =  f"static/face_0.jpg"
+            result = round(model.predict_filename(new_url)[0])
+            if os.path.exists(new_url): 
+                os.remove(new_url)
+            else:
+                result = round(model.predict_filename(f"static/{f.filename}")[0])
             result_url = url_for('result', predicted_digit=result, input_image=f.filename, _external=True)
             response_data = {'redirect_url': result_url}
             return jsonify(response_data)
@@ -122,6 +143,7 @@ def uploaded():
 
 @app.route("/result")
 def result():
+    """upload through video"""
     predicted_digit = request.args.get('predicted_digit')
     input_image = request.args.get('input_image')
     return render_template("final.html", predicted_digit=predicted_digit, input_image=input_image)
