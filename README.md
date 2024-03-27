@@ -2,7 +2,7 @@
 Automatic Facial Age Estimation of Black Persons(Deep learning approach) using Tensorflow Ktrain and Flask
 
 ## Tools used
-- Programming language and frameworks: Python, Tensorflow, Ktrain, Flask, cmd
+- Programming language and frameworks: Python, Tensorflow, Ktrain, Flask, Git, Bash
 - Model training and evaluation: Google colab, Vs code
 - WebApp: HTML, CSS, JSON, Python, Flask
 - Dataset: BlackFaces
