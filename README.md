@@ -1,5 +1,5 @@
-# Final-year-project: AFAE system
-Automatic Facial Age Estimation of Black Persons(Deep learning approach) using Tensorflow Ktrain and Flask
+# Final-year-project: AFAE Webapp
+Web Application for Automatic Facial Age Estimation of Black Persons(Deep learning approach)
 
 ## Tools used
 - Programming language and frameworks: Python, Tensorflow, Ktrain, Flask, Git, Bash
